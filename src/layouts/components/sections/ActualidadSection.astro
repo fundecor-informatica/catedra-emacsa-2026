@@ -1,0 +1,98 @@
+---
+import { getCollectionCTM } from "@/lib/contentParser.astro";
+import { getEntrySlugCTM } from "@/lib/utils/i18nUtils";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
+import SectionTitle from "../global/SectionTitle.astro";
+import Icons from "@/helpers/Icons.astro";
+import { getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
+
+let list = await getCollectionCTM("noticias", Astro.currentLocale || "es");
+list = sortByDate(list).slice(0, 3);
+
+const formatDate = (date: Date | string | undefined) => {
+  if (!date) return "";
+  const d = new Date(date);
+  return d.toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+---
+
+<section class="section bg-theme-light/30 border-y border-border-dark/5 py-16 md:py-24">
+  <div class="container">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div>
+        <div
+          class="mb-3 flex items-center gap-3 font-semibold uppercase tracking-wider text-sm text-primary"
+          data-aos="fade-up-sm"
+          data-aos-duration="600">
+          <Icons icon="Diamond" fill="var(--color-primary)" class="text-primary size-3" />
+          Actualidad
+        </div>
+        <SectionTitle title="Noticias Recientes de la Cátedra" />
+      </div>
+      
+      <div data-aos="fade-up-sm" data-aos-duration="600" data-aos-delay="100">
+        <a 
+          href="/noticias/" 
+          class="inline-flex items-center text-sm font-semibold text-primary border-b border-primary/20 pb-1 hover:text-dark hover:border-dark transition-all"
+        >
+          Ver todas las noticias <span class="ml-1.5">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    {
+      list && list.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {list.map((item, index) => {
+            const href = getEntrySlugCTM(item, Astro.currentLocale || "es");
+            return (
+              <article 
+                class="group flex flex-col overflow-hidden rounded-2xl border border-border-dark/10 bg-white transition-all hover:border-primary/20 hover:shadow-[0_10px_30px_rgba(0,0,0,0.03)]"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                {item.data.image && (
+                  <a href={href} class="relative block h-56 overflow-hidden">
+                    <OptimizedImage
+                      src={item.data.image}
+                      alt={item.data.title}
+                      width={400}
+                      height={250}
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </a>
+                )}
+                <div class="flex flex-1 flex-col p-6">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-text-default/50">
+                    {formatDate(item.data.date)}
+                  </span>
+                  <h3 class="mt-3 text-lg font-bold leading-snug transition-colors group-hover:text-primary line-clamp-2">
+                    <a href={href}>{item.data.title}</a>
+                  </h3>
+                  <p class="mt-3 flex-1 text-sm leading-relaxed text-text-default/70 line-clamp-3">
+                    {item.data.description}
+                  </p>
+                  <a 
+                    href={href} 
+                    class="mt-5 inline-flex items-center text-sm font-semibold text-primary transition-colors hover:text-dark"
+                  >
+                    Leer más <span class="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-text-default/60">No hay noticias publicadas en este momento.</p>
+        </div>
+      )
+    }
+  </div>
+</section>

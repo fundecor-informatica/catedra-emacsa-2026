@@ -94,6 +94,23 @@ export const teamCollection = defineCollection({
   }),
 });
 
+const noticiasCollection = defineCollection({
+  loader: contentLoader("./src/content/noticias"),
+  schema: page,
+});
+
+const jornadasCollection = defineCollection({
+  loader: contentLoader("./src/content/jornadas"),
+  schema: page,
+});
+
+const formacionCollection = defineCollection({
+  loader: contentLoader("./src/content/formacion"),
+  schema: page.extend({
+    tipoFormacion: z.string().optional(),
+  }),
+});
+
 export const collections = {
   [servicesFolder]: serviceCollection,
   services: serviceCollection,
@@ -103,4 +120,7 @@ export const collections = {
   homepage: defineCollection({
     loader: contentLoader("./src/content/homepage"),
   }),
+  noticias: noticiasCollection,
+  jornadas: jornadasCollection,
+  formacion: formacionCollection,
 };

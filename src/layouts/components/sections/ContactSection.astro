@@ -84,20 +84,7 @@ const { hasSectionSpacing = true } = Astro.props;
         {/* Form */}
         {form && <ContactForm form={form} />}
       </div>
-      {/* 3D character bottom-right */}
-      {
-        characterImage && (
-          <div class="pointer-events-none right-11.5 bottom-22 hidden select-none lg:absolute lg:block">
-            <OptimizedImage
-              src={characterImage}
-              alt={characterImageAlt || "3D character"}
-              width={210}
-              height={180}
-              class="h-auto w-full object-contain"
-            />
-          </div>
-        )
-      }
+
     </div>
   </div>
 </section>

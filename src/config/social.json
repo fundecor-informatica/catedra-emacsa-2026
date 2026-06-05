@@ -1,7 +1,7 @@
 {
   "main": [
     {
-      "enable": true,
+      "enable": false,
       "label": "Facebook",
       "lucideIcon": "facebook",
       "url": "https://www.facebook.com",
@@ -9,7 +9,7 @@
       "isForShareProject": true
     },
     {
-      "enable": true,
+      "enable": false,
       "label": "Twitter",
       "lucideIcon": "twitter-new",
       "url": "https://www.x.com",
@@ -25,7 +25,7 @@
       "isForShareProject": true
     },
     {
-      "enable": true,
+      "enable": false,
       "label": "Instagram",
       "lucideIcon": "instagram",
       "url": "https://www.instagram.com",
@@ -44,7 +44,7 @@
       "enable": false,
       "label": "Mail",
       "lucideIcon": "mail",
-      "url": "",
+      "url": "mailto:catedraemacsa@uco.es",
       "isForShare": true,
       "isForShareProject": false
     },

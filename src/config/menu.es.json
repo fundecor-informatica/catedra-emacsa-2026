@@ -1,0 +1,113 @@
+{
+  "main": [
+    {
+      "enable": true,
+      "name": "Inicio",
+      "weight": 1,
+      "url": "/"
+    },
+    {
+      "enable": true,
+      "name": "La Cátedra",
+      "weight": 2,
+      "url": "/#catedra"
+    },
+    {
+      "enable": true,
+      "name": "Oferta I+D+I",
+      "weight": 3,
+      "url": "/oferta-idi/"
+    },
+    {
+      "enable": true,
+      "name": "Jornadas",
+      "weight": 4,
+      "url": "/jornadas-y-conferencias/"
+    },
+    {
+      "enable": true,
+      "name": "Formación",
+      "weight": 5,
+      "url": "/formacion/"
+    },
+    {
+      "enable": true,
+      "name": "Premios",
+      "weight": 6,
+      "url": "/premios-concursos/"
+    },
+    {
+      "enable": true,
+      "name": "Noticias",
+      "weight": 9,
+      "url": "/noticias/"
+    },
+    {
+      "enable": false,
+      "name": "Contacto",
+      "weight": 10,
+      "url": "/contacto/"
+    }
+  ],
+  "topbar": [],
+  "footer": [
+    {
+      "label": "Enlaces Rápidos",
+      "list": [
+        {
+          "enable": true,
+          "name": "Inicio",
+          "url": "/",
+          "weight": 1
+        },
+        {
+          "enable": true,
+          "name": "La Cátedra",
+          "url": "/#catedra",
+          "weight": 2
+        },
+        {
+          "enable": true,
+          "name": "Oferta I+D+I",
+          "url": "/oferta-idi/",
+          "weight": 3
+        },
+        {
+          "enable": true,
+          "name": "Contacto",
+          "url": "/contacto/",
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "label": "Actividades",
+      "list": [
+        {
+          "enable": true,
+          "name": "Jornadas y Conferencias",
+          "url": "/jornadas-y-conferencias/",
+          "weight": 1
+        },
+        {
+          "enable": true,
+          "name": "Formación",
+          "url": "/formacion/",
+          "weight": 2
+        },
+        {
+          "enable": true,
+          "name": "Premios y Concursos",
+          "url": "/premios-concursos/",
+          "weight": 3
+        },
+        {
+          "enable": true,
+          "name": "Memorias de Actividades",
+          "url": "/memorias-actividades/",
+          "weight": 4
+        }
+      ]
+    }
+  ]
+}

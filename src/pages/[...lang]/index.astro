@@ -3,11 +3,13 @@ import Base from "@/layouts/Base.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils";
 import { getEntryCTM } from "@/lib/contentParser.astro";
 import HomeBannerTwo from "@/components/sections/HomeBannerTwo.astro";
+import InstitutionalLogos from "@/components/sections/InstitutionalLogos.astro";
 import ContactSection from "@/components/sections/ContactSection.astro";
 import FeaturesGridTwo from "@/components/sections/FeaturesGridTwo.astro";
 import OurServicesSection from "@/components/sections/OurServicesSection.astro";
 import WorkingProcessSection from "@/components/sections/WorkingProcessSection.astro";
 import AboutCompanySectionTwo from "@/components/sections/AboutCompanySectionTwo.astro";
+import ActualidadSection from "@/components/sections/ActualidadSection.astro";
 import bgOptimizedImage from "@/lib/utils/bgOptimizedImage";
 
 export function getStaticPaths() {
@@ -32,9 +34,11 @@ imageToPreload = imageToPreload
 
 <Base {...homepage.data} homepage={true} preloadImages={[imageToPreload]}>
   <HomeBannerTwo />
+  <InstitutionalLogos />
   <FeaturesGridTwo />
   <AboutCompanySectionTwo hasSectionSpacing={false} />
   <WorkingProcessSection />
   <OurServicesSection />
+  <ActualidadSection />
   <ContactSection />
 </Base>

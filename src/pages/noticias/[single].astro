@@ -1,0 +1,71 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getCollectionCTM } from "@/lib/contentParser.astro";
+import { getEntryRouteParam } from "@/lib/utils/i18nUtils";
+import { render } from "astro:content";
+import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
+import ContactSection from "@/components/sections/ContactSection.astro";
+import PageHeader from "@/layouts/components/widgets/PageHeader.astro";
+
+export async function getStaticPaths() {
+  const noticias = await getCollectionCTM("noticias", "es");
+  return noticias.map((noticia) => ({
+    params: {
+      single: getEntryRouteParam(noticia),
+    },
+    props: {
+      noticia,
+    },
+  }));
+}
+
+const { noticia } = Astro.props;
+const { Content } = await render(noticia);
+
+const formatDate = (date: Date | string | undefined) => {
+  if (!date) return "";
+  const d = new Date(date);
+  return d.toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+---
+
+<Base {...noticia.data}>
+  <PageHeader title={noticia.data.title} breadcrumbTitle="Noticia" />
+
+  <section class="section py-12">
+    <div class="relative container max-w-4xl">
+      <article>
+        {noticia.data.image && (
+          <div class="mb-8 overflow-hidden rounded-2xl aspect-[16/9]">
+            <OptimizedImage
+              src={noticia.data.image}
+              alt={noticia.data.title}
+              width={900}
+              height={500}
+              class="h-full w-full object-cover"
+            />
+          </div>
+        )}
+        <div class="flex items-center space-x-4 mb-6">
+          <span class="text-sm font-semibold uppercase tracking-wider text-text-default/50">
+            {formatDate(noticia.data.date)}
+          </span>
+        </div>
+        <div class="prose max-w-none prose-lg text-text-default/80">
+          <Content components={{ img: OptimizedImage }} />
+        </div>
+      </article>
+      <div class="mt-12 border-t border-border-dark/10 pt-6">
+        <a href="/noticias/" class="inline-flex items-center text-sm font-semibold text-primary hover:text-dark">
+          &larr; Volver a todas las noticias
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection />
+</Base>

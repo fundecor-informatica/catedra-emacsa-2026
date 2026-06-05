@@ -1,0 +1,60 @@
+---
+import OptimizedImage from "../utilities/OptimizedImage.astro";
+import { useTranslations } from "@/lib/utils/i18nUtils";
+
+const t = await useTranslations(Astro.currentLocale as string);
+
+const logos = [
+  {
+    src: "/images/logos/Logo_UCO-.png",
+    alt: "Universidad de Córdoba",
+    link: "https://www.uco.es"
+  },
+  {
+    src: "/images/logos/Logo-Ayto.png",
+    alt: "Ayuntamiento de Córdoba",
+    link: "https://www.cordoba.es"
+  },
+  {
+    src: "/images/logos/Logo-emacsa.png",
+    alt: "EMACSA - Empresa Municipal de Aguas de Córdoba",
+    link: "https://www.emacsa.es"
+  }
+];
+---
+
+<section class="bg-white py-12 md:py-20 border-b border-border-light relative z-20">
+  <div class="container">
+    <div class="mx-auto text-center max-w-2xl mb-10 md:mb-14">
+      <span class="text-primary font-bold text-sm tracking-widest uppercase block mb-3">
+        {Astro.currentLocale === "es" ? "Entidades Fundadoras" : "Founding Institutions"}
+      </span>
+      <h2 class="text-2xl md:text-3xl font-bold text-text-default">
+        {Astro.currentLocale === "es" ? "Unión para la Gestión Sostenible del Agua" : "Union for Sustainable Water Management"}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16 items-center justify-center">
+      {
+        logos.map((logo, index) => (
+          <a
+            href={logo.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center p-4 transition-opacity duration-300 hover:opacity-80 group"
+            data-aos="fade-up"
+            data-aos-delay={index * 150}
+            data-aos-duration="700"
+          >
+            <OptimizedImage
+              src={logo.src}
+              alt={logo.alt}
+              width={350}
+              class="max-h-16 w-auto object-contain no-ripple"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

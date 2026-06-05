@@ -103,6 +103,9 @@
 
           // Magnetic Hover Animation
           initMagneticHoverAnimation();
+
+          // Image Ripples Animation
+          initImageRipples();
         });
       }
     });
@@ -390,6 +393,119 @@
             elem.style.transform = "translate(0, 0)";
           });
       }
+    });
+  }
+
+  // Ripple effect on images
+  function initImageRipples() {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    let depsLoaded = false;
+    let loadingDeps = false;
+
+    async function loadDeps() {
+        if (depsLoaded) return true;
+        if (loadingDeps) return false;
+        loadingDeps = true;
+        try {
+            const jqModule = await import("jquery");
+            const $ = jqModule.default || jqModule;
+            window.jQuery = window.$ = $;
+            await import("jquery.ripples");
+            depsLoaded = true;
+            return true;
+        } catch (e) {
+            console.error("Failed to load ripples dependencies", e);
+            return false;
+        } finally {
+            loadingDeps = false;
+        }
+    }
+
+    document.addEventListener("mouseover", async (e) => {
+        const target = e.target as HTMLImageElement;
+        if (target.tagName !== "IMG") return;
+        
+        // Skip specific images
+        if (target.closest('header, footer, .logo, .icon, [data-lucide], a[href="/"], .no-ripple')) return;
+        if (target.width < 50 || target.height < 50) return; // Skip small images
+        if (target.src.endsWith(".svg")) return;
+        if (target.dataset.rippling) return;
+
+        // Ensure dependencies are loaded
+        if (!depsLoaded) {
+            const success = await loadDeps();
+            if (!success) return;
+        }
+
+        const $ = window.$;
+        target.dataset.rippling = "true";
+
+        const rect = target.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+        const computedStyle = window.getComputedStyle(target);
+        
+        // Match the object-fit of the image to the background-size of the overlay
+        const fit = computedStyle.objectFit === 'contain' ? 'contain' : 
+                   (computedStyle.objectFit === 'fill' ? '100% 100%' : 'cover');
+
+        // Create an overlay exactly on top of the image
+        const $overlay = $('<div class="ripple-overlay"></div>').css({
+            position: 'absolute',
+            top: (rect.top + scrollTop) + 'px',
+            left: (rect.left + scrollLeft) + 'px',
+            width: rect.width + 'px',
+            height: rect.height + 'px',
+            borderRadius: computedStyle.borderRadius,
+            zIndex: 9999,
+            pointerEvents: 'auto',
+            backgroundSize: fit,
+            backgroundPosition: computedStyle.objectPosition || 'center',
+            opacity: 0,
+            transition: 'opacity 0.4s ease'
+        });
+
+        $('body').append($overlay);
+
+        // Cleanup function to destroy overlay on leave or scroll
+        const cleanup = () => {
+            $overlay.css('opacity', 0);
+            target.dataset.rippling = "";
+            window.removeEventListener('scroll', cleanup, { capture: true });
+            window.removeEventListener('resize', cleanup);
+            
+            setTimeout(() => {
+                try { $overlay.ripples('destroy'); } catch(e) {}
+                $overlay.remove();
+            }, 400);
+        };
+
+        // Initialize ripples
+        try {
+            $overlay.ripples({
+                resolution: 512,
+                dropRadius: 20,
+                perturbance: 0.04,
+                imageUrl: target.src
+            });
+            
+            // Fade in and trigger initial drop
+            requestAnimationFrame(() => {
+                $overlay.css('opacity', 1);
+                $overlay.ripples("drop", e.clientX - rect.left, e.clientY - rect.top, 20, 0.04);
+            });
+
+            $overlay.on('mouseleave', cleanup);
+            // Use capture phase for scroll to catch scrolls inside inner containers
+            window.addEventListener('scroll', cleanup, { capture: true, passive: true });
+            window.addEventListener('resize', cleanup, { passive: true });
+
+        } catch (err) {
+            console.error("Error initializing ripples:", err);
+            cleanup();
+        }
     });
   }
 </script>

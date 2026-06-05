@@ -131,7 +131,7 @@ async function updateLanguageConfig(DEFAULT_LANG, languages) {
   log(`Updated language.json to only include: ${DEFAULT_LANG}`, "green");
 }
 
-async function cleanupMenuFiles() {
+async function cleanupMenuFiles(DEFAULT_LANG) {
   log("Cleaning up menu files...", "cyan");
 
   if (!(await pathExists(CONFIG_DIR))) {
@@ -143,7 +143,7 @@ async function cleanupMenuFiles() {
 
   await Promise.all(
     files
-      .filter((file) => file.startsWith("menu.") && file !== "menu.en.json")
+      .filter((file) => file.startsWith("menu.") && file !== `menu.${DEFAULT_LANG}.json`)
       .map(async (file) => {
         const filePath = path.join(CONFIG_DIR, file);
         await fs.unlink(filePath);
@@ -154,7 +154,7 @@ async function cleanupMenuFiles() {
   log("Menu files cleanup completed.", "green");
 }
 
-async function cleanupI18nFiles() {
+async function cleanupI18nFiles(DEFAULT_LANG) {
   log("Cleaning up i18n files...", "cyan");
 
   if (!(await pathExists(I18N_DIR))) {
@@ -166,7 +166,7 @@ async function cleanupI18nFiles() {
 
   await Promise.all(
     files
-      .filter((file) => file !== "en.json")
+      .filter((file) => file !== `${DEFAULT_LANG}.json`)
       .map(async (file) => {
         const filePath = path.join(I18N_DIR, file);
         await fs.unlink(filePath);
@@ -208,8 +208,8 @@ async function runCleanup() {
       DEFAULT_LANG,
       Array.isArray(languages) ? languages : [],
     );
-    await cleanupMenuFiles();
-    await cleanupI18nFiles();
+    await cleanupMenuFiles(DEFAULT_LANG);
+    await cleanupI18nFiles(DEFAULT_LANG);
 
     log("Cleanup process completed successfully.", "green");
   } catch (err) {

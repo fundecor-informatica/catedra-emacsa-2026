@@ -1,0 +1,96 @@
+{
+  "common": {
+    "readMore": "Leer más",
+    "category": "Categoría",
+    "emailPlaceholder": "Correo Electrónico",
+    "emailLabel": "Email",
+    "subscribeSuccess": "¡Suscripción exitosa!",
+    "subscribeFail": "Error al suscribirse.",
+    "subscribeError": "Ocurrió un error inesperado.",
+    "bannerPattern": "Patrón de banner",
+    "customerAvatar": "Avatar",
+    "decorativePattern": "Patrón decorativo",
+    "experience": "Experiencia",
+    "aboutUs": "Sobre nosotros",
+    "experienceBadge": "Medalla de experiencia",
+    "paginationNext": "Siguiente",
+    "paginationPrevious": "Anterior",
+    "contactDropdownSearch404": "No se encontraron resultados",
+    "404Heading": "404 - Página no encontrada",
+    "404Description": "Parece que te has perdido.",
+    "404ButtonLabel": "Volver al inicio",
+    "send": "Enviar",
+    "share": "Compartir",
+    "projectDetails": "Detalles del proyecto"
+  },
+  "navigation": {
+    "buttonLabel": "Contactar"
+  },
+  "contactInfo": {
+    "locationLabel": "Ubicación",
+    "phoneLabel": "Teléfono",
+    "emailLabel": "Correo"
+  },
+  "subscription": {
+    "title": "",
+    "description": ""
+  },
+  "integration": {
+    "relatedIntegrationSectionTitle": "Te podría **interesar**",
+    "backToIntegration": "Volver"
+  },
+  "footerBlock": {
+    "description": "Un esfuerzo conjunto de la Universidad de Córdoba y EMACSA para avanzar en la gestión responsable, la innovación y la concienciación sobre el ciclo del agua.",
+    "copyright": "Copyright © 2026 Cátedra EMACSA Universidad de Córdoba | Todos los derechos reservados.",
+    "contactBlockLabel": "Contacto",
+    "aboutUsLabel": "Sobre Nosotros",
+    "quickLinksLabel": "Enlaces Rápidos",
+    "officeLabel": "Oficina",
+    "socialLabel": "Redes",
+    "recentPostsLabel": "Últimas Noticias"
+  },
+  "blog": {
+    "comments": "Comentarios",
+    "noComments": "Sin comentarios",
+    "previousPost": "Anterior",
+    "nextPost": "Siguiente"
+  },
+  "button": {
+    "readMore": "Leer más",
+    "viewProjects": "Ver proyectos",
+    "view": "Ver",
+    "getAQuote": "Obtener cotización",
+    "discoverMore": "Descubre más",
+    "findOutMore": "Saber más",
+    "showAll": "Mostrar todo"
+  },
+  "header": {
+    "announcement": ""
+  },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "linkedin": "Linkedin"
+  },
+  "widgets": {
+    "postSearchTitle": "Buscar",
+    "postSearchFormPlaceholder": "Buscar",
+    "categoriesTitle": "Categorías",
+    "recentPostsTitle": "Recientes"
+  },
+  "aria": {
+    "toggleNav": "Alternar navegación",
+    "backToTop": "Volver arriba",
+    "closeModal": "Cerrar",
+    "playVideo": "Reproducir",
+    "search": "Buscar",
+    "prevSlide": "Anterior",
+    "nextSlide": "Siguiente",
+    "prevTestimonial": "Testimonio anterior",
+    "nextTestimonial": "Testimonio siguiente",
+    "languageMenu": "Idioma",
+    "pagination": "Paginación",
+    "socialLinks": "Redes sociales",
+    "aboutCompany": "Sobre nosotros"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container { position: relative; width: 500px; height: 500px; background: #eee; margin: 50px; }
+    .img-abs { position: absolute; left: 50px; top: 50px; width: 200px; height: auto; border-radius: 10px; }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery.ripples@0.6.3/dist/jquery.ripples.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <img class="img-abs" src="https://picsum.photos/400/300" />
+  </div>
+  <script>
+    $('img').on('mouseenter', function(e) {
+      if ($(this).data('rippling')) return;
+      $(this).data('rippling', true);
+      
+      const target = this;
+      const rect = target.getBoundingClientRect();
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+      const computed = window.getComputedStyle(target);
+      
+      const $overlay = $('<div class="ripple-overlay"></div>').css({
+          position: 'absolute',
+          top: (rect.top + scrollTop) + 'px',
+          left: (rect.left + scrollLeft) + 'px',
+          width: rect.width + 'px',
+          height: rect.height + 'px',
+          borderRadius: computed.borderRadius,
+          zIndex: 9999,
+          pointerEvents: 'auto'
+      });
+      $('body').append($overlay);
+      
+      $overlay.ripples({
+          imageUrl: target.src,
+          resolution: 256,
+          dropRadius: 20,
+          perturbance: 0.04
+      });
+      
+      $overlay.ripples("drop", e.clientX - rect.left, e.clientY - rect.top, 20, 0.04);
+      
+      $overlay.on('mouseleave', function() {
+          $(this).ripples('destroy');
+          $(this).remove();
+          $(target).data('rippling', false);
+      });
+    });
+  </script>
+</body>
+</html>

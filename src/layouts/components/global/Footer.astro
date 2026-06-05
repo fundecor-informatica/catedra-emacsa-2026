@@ -6,6 +6,7 @@ import config from ".astro/config.generated.json";
 import { useTranslations, getLocaleUrlCTM } from "@/lib/utils/i18nUtils";
 import Button from "../Button.astro";
 import { filteredEnabled } from "@/lib/utils/filteredEnabled";
+import OptimizedImage from "../utilities/OptimizedImage.astro";
 
 const t = await useTranslations(Astro.currentLocale as string);
 let footerMenus = t("footer") as {
@@ -123,6 +124,8 @@ const copyrightText = copyright.text;
           </ul>
         </div>
       </div>
+
+
 
       <div
         class="border-border-dark flex flex-col items-center justify-center border-t py-7">

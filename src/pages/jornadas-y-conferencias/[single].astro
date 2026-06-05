@@ -1,0 +1,71 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getCollectionCTM } from "@/lib/contentParser.astro";
+import { getEntryRouteParam } from "@/lib/utils/i18nUtils";
+import { render } from "astro:content";
+import OptimizedImage from "@/components/utilities/OptimizedImage.astro";
+import ContactSection from "@/components/sections/ContactSection.astro";
+import PageHeader from "@/layouts/components/widgets/PageHeader.astro";
+
+export async function getStaticPaths() {
+  const jornadas = await getCollectionCTM("jornadas", "es");
+  return jornadas.map((jornada) => ({
+    params: {
+      single: getEntryRouteParam(jornada),
+    },
+    props: {
+      jornada,
+    },
+  }));
+}
+
+const { jornada } = Astro.props;
+const { Content } = await render(jornada);
+
+const formatDate = (date: Date | string | undefined) => {
+  if (!date) return "";
+  const d = new Date(date);
+  return d.toLocaleDateString("es-ES", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+---
+
+<Base {...jornada.data}>
+  <PageHeader title={jornada.data.title} breadcrumbTitle="Jornada" />
+
+  <section class="section py-12">
+    <div class="relative container max-w-4xl">
+      <article>
+        {jornada.data.image && (
+          <div class="mb-8 overflow-hidden rounded-2xl aspect-[16/9]">
+            <OptimizedImage
+              src={jornada.data.image}
+              alt={jornada.data.title}
+              width={900}
+              height={500}
+              class="h-full w-full object-cover"
+            />
+          </div>
+        )}
+        <div class="flex items-center space-x-4 mb-6">
+          <span class="text-sm font-semibold uppercase tracking-wider text-text-default/50">
+            {formatDate(jornada.data.date)}
+          </span>
+        </div>
+        <div class="prose max-w-none prose-lg text-text-default/80">
+          <Content components={{ img: OptimizedImage }} />
+        </div>
+      </article>
+      <div class="mt-12 border-t border-border-dark/10 pt-6">
+        <a href="/jornadas-y-conferencias/" class="inline-flex items-center text-sm font-semibold text-primary hover:text-dark">
+          &larr; Volver a todas las jornadas
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection />
+</Base>

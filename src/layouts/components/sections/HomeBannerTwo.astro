@@ -33,24 +33,44 @@ const {
   satisfactionClients,
   button,
 } = actualContent;
+
+const slides = [
+  { src: "/images/hero_water_tech.jpg", alt: "Gestión sostenible del agua y tecnología" },
+  { src: "/images/page-header-bg.png", alt: "Cátedra EMACSA UCO" },
+  { src: "/images/about_water_research.png", alt: "Investigación y análisis del ciclo del agua" }
+];
 ---
 
 <section id="home" class="relative overflow-hidden scroll-mt-28 pt-0">
   <div
     aria-hidden="true"
-    class="bg-theme-dark/80 absolute inset-0 z-10 size-full">
+    class="bg-gradient-to-b from-theme-dark/85 via-theme-dark/35 to-theme-dark/80 absolute inset-0 z-10 size-full">
   </div>
-  <div class="absolute inset-0 size-full">
+  <div class="absolute inset-0 size-full" id="hero-slideshow">
+    <!-- Video slide (Initial slide) -->
+    <video
+      autoplay
+      loop
+      muted
+      playsinline
+      class="slide absolute inset-0 size-full object-cover object-center transition-opacity duration-1000 opacity-100"
+    >
+      <source src="/videos/background-ctedra-emacsa-2026.mp4" type="video/mp4" />
+    </video>
+
+    <!-- Image slides -->
     {
-      image && (
+      slides.map((slide, index) => (
         <OptimizedImage
-          src={image}
-          alt={imageAlt}
-          loading="eager"
-          fetchpriority="high"
-          class="size-full object-cover object-center"
+          src={slide.src}
+          alt={slide.alt}
+          loading="lazy"
+          fetchpriority="low"
+          class:list={[
+            "slide absolute inset-0 size-full object-cover object-center transition-opacity duration-1000 opacity-0"
+          ]}
         />
-      )
+      ))
     }
   </div>
   <div class="container-2xl relative z-10">
@@ -149,3 +169,50 @@ const {
     </div>
   </div>
 </section>
+
+<script>
+  const initSlideshow = () => {
+    const container = document.getElementById("hero-slideshow");
+    if (!container) return;
+    const slides = container.querySelectorAll(".slide");
+    let currentSlide = 0;
+
+    const playActiveVideo = (slide: Element | null) => {
+      if (slide && slide.tagName === "VIDEO") {
+        (slide as HTMLVideoElement).play().catch(() => {});
+      }
+    };
+
+    const pauseInactiveVideo = (slide: Element | null) => {
+      if (slide && slide.tagName === "VIDEO") {
+        (slide as HTMLVideoElement).pause();
+      }
+    };
+
+    if (slides.length > 0) {
+      // Ensure the first slide (video) plays initially
+      playActiveVideo(slides[0]);
+
+      setInterval(() => {
+        const prevSlide = slides[currentSlide];
+        
+        currentSlide = (currentSlide + 1) % slides.length;
+        const nextSlide = slides[currentSlide];
+
+        prevSlide.classList.remove("opacity-100");
+        prevSlide.classList.add("opacity-0");
+        pauseInactiveVideo(prevSlide);
+        
+        nextSlide.classList.remove("opacity-0");
+        nextSlide.classList.add("opacity-100");
+        playActiveVideo(nextSlide);
+      }, 10000); // changes every 10 seconds for a more premium, relaxed rotation
+    }
+  };
+
+  // Run on initial load
+  initSlideshow();
+  
+  // Also run on page swaps for View Transitions if enabled
+  document.addEventListener("astro:after-swap", initSlideshow);
+</script>
