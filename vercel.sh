@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Clean cached build artifacts to avoid stale content references
+rm -rf .astro
+
 # Check if the script is running in a production or preview environment
 if [[ $VERCEL_ENV == "production" ]]; then
   # Use the production project URL and prepend 'https://'
