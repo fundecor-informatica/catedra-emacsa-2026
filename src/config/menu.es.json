@@ -16,7 +16,7 @@
       "enable": true,
       "name": "Oferta I+D+I",
       "weight": 3,
-      "url": "/oferta-idi/"
+      "url": "/catedra/oferta-idi"
     },
     {
       "enable": true,
@@ -69,7 +69,7 @@
         {
           "enable": true,
           "name": "Oferta I+D+I",
-          "url": "/oferta-idi/",
+          "url": "/catedra/oferta-idi",
           "weight": 3
         },
         {
