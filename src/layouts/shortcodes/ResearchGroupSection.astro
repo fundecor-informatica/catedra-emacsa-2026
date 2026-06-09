@@ -1,91 +1,21 @@
 ---
 const groups = [
-  {
-    icon: "beaker",
-    title: "Control de calidad y monitorización de aguas",
-    description: "Particularmente de contaminantes emergentes.",
-  },
-  {
-    icon: "droplets",
-    title: "Procesos de tratamiento de aguas",
-    description: "Destinadas a uso urbano.",
-  },
-  {
-    icon: "filter",
-    title: "Procesos de depuración de aguas",
-    description: "Pluviales y residuales urbanas e industriales.",
-  },
-  {
-    icon: "recycle",
-    title: "Valorización de lodos de depuración",
-    description: "Y aplicación al suelo.",
-  },
-  {
-    icon: "refresh",
-    title: "Producción, usos y control de aguas regeneradas",
-    description: "",
-  },
-  {
-    icon: "cpu",
-    title: "Sensorización y digitalización del ciclo integral del agua",
-    description: "",
-  },
-  {
-    icon: "zap",
-    title: "Optimización energética en el ciclo integral del agua",
-    description: "",
-  },
-  {
-    icon: "heart",
-    title: "Concienciación y sensibilización de la ciudadanía",
-    description: "Sobre la sostenibilidad del ciclo del agua.",
-  },
-  {
-    icon: "globe",
-    title: "Gestión de recursos hídricos",
-    description: "",
-  },
-];
-
-const iconPaths: Record<string, string> = {
-  beaker: "M4.5 3h15l-2.5 14.5A3 3 0 0 1 14 20H9a3 3 0 0 1-3-3L4.5 3zM8.5 3l.5 3h6l.5-3",
-  droplets: "M12 2.5S8 7 8 10a4 4 0 0 0 8 0c0-3-4-7.5-4-7.5zM8 12a4 4 0 0 0 8 0",
-  filter: "M22 3H2l8 9.46V19l4 2v-8.54L22 3z",
-  recycle: "M21 12v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3M7 10l5-7 5 7M12 3v13",
-  refresh: "M23 4v6h-6M1 20v-6h6M3.5 9a9 9 0 0 1 14.6-3.1L23 10M1 14l4.9 4.1A9 9 0 0 0 20.5 15",
-  cpu: "M4 4h16v16H4zM9 9h6v6H9zM3 12h2M19 12h2M12 3v2M12 19v2",
-  zap: "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
-  heart: "M19 14c1.5-1.5 2.5-3.5 2.5-5.5A4.5 4.5 0 0 0 12 6a4.5 4.5 0 0 0-9.5 2.5c0 2 1 4 2.5 5.5L12 21l7-7z",
-  globe: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z",
-};
-
-const iconColors: string[] = [
-  "#0ea5e9", "#06b6d4", "#0891b2", "#10b981", "#84cc16",
-  "#eab308", "#f97316", "#ef4444", "#8b5cf6",
+  { title: "Monitorización y Detección" },
+  { title: "Tratamiento y degradación" },
+  { title: "Reutilización y valorización" },
+  { title: "Sistemas y previsión" },
 ];
 ---
 
 <section class="overflow-hidden">
   <div class="container px-0">
     <div class="relative">
-      <div class="mb-10 flex flex-col items-start gap-8 md:flex-row">
-        <img
-          src="/images/idi_emacsa.png"
-          alt="I+D+i"
-          class="w-full max-w-2xl shrink-0 md:w-1/2"
-          loading="lazy"
-        />
-        <div class="text-text-default/80 flex flex-col justify-center text-base leading-relaxed md:text-lg">
-          <p>
-            La oferta de I+D+i de la Cátedra EMACSA se articula en torno a las
-            líneas de actuación definidas por EMACSA para la gestión integral
-            del agua. En el centro del diagrama se recogen las palabras clave
-            de estas líneas, mientras que en la corona exterior se relacionan
-            los grupos de investigación de la Universidad de Córdoba que
-            desarrollan su actividad en cada una de ellas.
-          </p>
-        </div>
-      </div>
+      <img
+        src="/images/idi_emacsa.png"
+        alt="I+D+i"
+        class="mb-8 w-full max-w-2xl"
+        loading="lazy"
+      />
 
       <h2
         class="text-h2-sm md:text-h2 font-semibold"
@@ -103,28 +33,13 @@ const iconColors: string[] = [
             data-aos-delay={index * 80}
             data-aos-duration="600">
             <div class="flex flex-col gap-4 md:flex-row md:items-start lg:gap-10 xl:gap-14">
-              <div class="w-auto shrink-0 pt-2 lg:pt-4 lg:text-lg">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="28" height="28" viewBox="0 0 24 24"
-                  fill="none" stroke={iconColors[index % iconColors.length]}
-                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  {iconPaths[group.icon].split("M").filter(Boolean).map((d, i) => (
-                    <path key={i} d={`M${d}`} />
-                  ))}
-                </svg>
+              <div class="text-text-default/70 w-auto shrink-0 pt-2 font-medium lg:pt-4 lg:text-lg">
+                {String(index + 1).padStart(2, "0")}
               </div>
               <div class="relative z-10 flex flex-1 flex-col justify-center">
                 <h3 class="text-h3-sm md:text-h3 font-bold transition-colors">
                   {group.title}
                 </h3>
-                {group.description && (
-                  <div class="overflow-hidden">
-                    <p class="text-text-default/70 pt-4 pb-5 lg:max-w-110 lg:pt-6.5 lg:text-lg xl:max-w-140 xl:leading-7">
-                      {group.description}
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
           </div>
