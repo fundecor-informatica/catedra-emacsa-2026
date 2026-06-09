@@ -16,12 +16,12 @@ export async function getStaticPaths() {
         config.settings.multilingual;
 
       const serviceIndex = await getEntryCTM(
-        "services",
+        config.settings.servicesFolder,
         "-index",
         lang.languageCode,
       );
 
-      let services = await getCollectionCTM("services", lang.languageCode);
+      let services = await getCollectionCTM(config.settings.servicesFolder, lang.languageCode);
 
       if (serviceIndex?.data.draft && import.meta.env.PROD) {
         return [];

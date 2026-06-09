@@ -143,7 +143,7 @@ export const getLocalizedPathnameCTM = async (
   }
 
   if (
-    segments[0] === "services" &&
+    segments[0] === "catedra" &&
     segments[1] &&
     segments[1] !== "page"
   ) {
@@ -157,7 +157,7 @@ export const getLocalizedPathnameCTM = async (
     return getLocaleUrlCTM(
       localizedEntrySlug || segments[1],
       targetLang,
-      "/services",
+      "/catedra",
     );
   }
 

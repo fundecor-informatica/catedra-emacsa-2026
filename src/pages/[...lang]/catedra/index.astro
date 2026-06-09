@@ -2,6 +2,7 @@
 import Base from "@/layouts/Base.astro";
 import { generatePaths } from "@/lib/utils/i18nUtils";
 import { getEntryCTM } from "@/lib/contentParser.astro";
+import config from ".astro/config.generated.json";
 import ContactSection from "@/components/sections/ContactSection.astro";
 import PageHeader from "@/layouts/components/widgets/PageHeader.astro";
 import ServiceListSection from "@/components/sections/ServiceListSection.astro";
@@ -10,7 +11,7 @@ export function getStaticPaths() {
   return generatePaths();
 }
 
-const services = await getEntryCTM("services", "-index", Astro.currentLocale);
+const services = await getEntryCTM(config.settings.servicesFolder, "-index", Astro.currentLocale);
 ---
 
 <Base {...services.data}>
