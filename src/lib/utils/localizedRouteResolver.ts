@@ -9,7 +9,7 @@ import {
 } from "./i18nUtils";
 import { slugifyyy } from "./textConverter";
 
-const { blogFolder, caseStudiesFolder } = config.settings;
+const { blogFolder, caseStudiesFolder, servicesFolder } = config.settings;
 const languageCodes = supportedLanguages.map((language) => language.languageCode);
 
 const stripLocalePrefix = (pathname: string): string => {
@@ -148,7 +148,7 @@ export const getLocalizedPathnameCTM = async (
     segments[1] !== "page"
   ) {
     const localizedEntrySlug = await findLocalizedEntryRouteParam(
-      "services",
+      servicesFolder as CollectionKey,
       segments[1],
       sourceLang,
       targetLang,

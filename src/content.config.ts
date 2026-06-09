@@ -113,7 +113,6 @@ const formacionCollection = defineCollection({
 
 export const collections = {
   [servicesFolder]: serviceCollection,
-  services: serviceCollection,
   sections: defineCollection({
     loader: contentLoader("./src/content/sections"),
   }),
