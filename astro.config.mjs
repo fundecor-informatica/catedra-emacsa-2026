@@ -48,6 +48,7 @@ export default defineConfig({
         "@/shortcodes/ImageItem.astro",
         "@/shortcodes/InfoBlockItem.astro",
         "@/shortcodes/InfoBlockList.astro",
+        "@/shortcodes/ResearchGroupSection.astro",
       ],
     }),
     mdx(),
